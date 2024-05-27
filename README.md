@@ -1,16 +1,29 @@
 # sql_lite_flutter
 
-A new Flutter project.
+Flutter Application showcasing SQLite with List of Quotes. CRUD operation and Dark Theme, Light Theme.
 
-## Getting Started
+# Output
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/1f2b8576-b4af-48fa-b5ec-0e1963e69d6b
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/e0e961bf-7232-46bb-b841-664a9147e69f
+
+
+
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/2d9fa4c9-ffa3-435f-9bd2-8dec1616f067
+
+
+
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/7116c545-935e-4a5e-a6c2-7555a9f561d6
+
+
+
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/8404f43c-8d4d-4013-9f89-f67669f7ac9e
+
+
+
+https://github.com/chaitanyaamle/sql_lite_flutter/assets/30501921/f5d10540-d794-487e-a52c-18a8aa0bda19
+
