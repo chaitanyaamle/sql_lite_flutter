@@ -3,8 +3,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'QuotesDataModel.dart';
 import 'dbhelper.dart';
 
-List<Quotes> quotes_list = [];
-
 class FavouritePage extends StatefulWidget {
   const FavouritePage({Key? key}) : super(key: key);
 
@@ -16,16 +14,22 @@ class _FavouritePageState extends State<FavouritePage> {
   RewardedAd? rewardedAd;
   bool isLoaded = false;
 
+List<Quotes> quotes_list = [];
+
+
   void lockUpdate(int lock, int index) async {
     var dbhelper = Dbhelper();
     print("Lock: $lock, idx: $index");
     dbhelper.updateLock(lock, quotes_list[index].id);
+    quotes_list[index].lock = lock;
+    setState(() { });
     // print(fav);
     // print(index);
   }
 
   void update(int fav, int index) async {
     var dbhelper = Dbhelper();
+    quotes_list[index].favourites = fav;
     dbhelper.updateFav(fav, quotes_list[index].id);
   }
 
@@ -33,6 +37,7 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
     initRewardedAd();
   }
 
@@ -85,12 +90,7 @@ class _FavouritePageState extends State<FavouritePage> {
         AlertDialog(
           title: const Text("No Favourite Quotes"),
           content: const SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text("No favourite quotes added in the list."),
-                Text("Would you like to add quotes in your favourite list?")
-              ],
-            ),
+            child: Text("No favourite quotes added in the list."),
           ),
           actions: [
             TextButton(
@@ -107,7 +107,6 @@ class _FavouritePageState extends State<FavouritePage> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
@@ -188,7 +187,7 @@ class _FavouritePageState extends State<FavouritePage> {
     List<Quotes> quotesList = await dbhelper.getFavQuotes();
     print("QUOTE: $quotesList");
     setState(() {
-      quotesList = quotesList;
+      quotes_list = quotesList;
     });
   }
 }

@@ -8,11 +8,13 @@ import 'QuotesDataModel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-List<Quotes> quotes_list = [];
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // MobileAds.instance.initialize();
+  MobileAds.instance.initialize();
+  List<String> testDeviceIds = ['32964B237547279D29E80D3A987D2119'];
+  RequestConfiguration configuration =
+       RequestConfiguration(testDeviceIds: testDeviceIds);
+  MobileAds.instance.updateRequestConfiguration(configuration);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return runApp(ChangeNotifierProvider(
       child: const MyApp(),
@@ -32,11 +34,14 @@ class _MyAppState extends State<MyApp> {
   RewardedAd? rewardedAd;
   bool isLoaded = false;
 
+List<Quotes> quotes_list = [];
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // initRewardedAd();
+    initRewardedAd();
     getData();
   }
 
@@ -56,21 +61,24 @@ class _MyAppState extends State<MyApp> {
     var dbhelper = Dbhelper();
     List<Quotes> quotesList = await dbhelper.getQuotes();
     setState(() {
-      quotesList = quotesList;
+      quotes_list = quotesList;
     });
   }
 
   void update(int fav, int index) async {
     var dbhelper = Dbhelper();
     dbhelper.updateFav(fav, quotes_list[index].id);
-    // print(fav);
-    // print(index);
+    quotes_list[index].favourites = fav;
+    print("fav $fav");
+    print("index $fav");
   }
 
   void lockUpdate(int lock, int index) async {
     var dbhelper = Dbhelper();
     print("Lock: $lock, idx: $index");
     dbhelper.updateLock(lock, quotes_list[index].id);
+    quotes_list[index].lock = lock;
+    setState(() {});
     // print(fav);
     // print(index);
   }
@@ -78,6 +86,8 @@ class _MyAppState extends State<MyApp> {
   void deleteData(int index) async {
     var dbhelper = Dbhelper();
     dbhelper.deleteQuote(quotes_list[index].id);
+    quotes_list.removeAt(index);
+    setState(() {});
   }
 
   Widget FavouriteQuote(int index) {
@@ -129,8 +139,9 @@ class _MyAppState extends State<MyApp> {
               IconButton(
                 icon: const Icon(Icons.add),
                 color: Colors.white,
-                onPressed: () {
-                  Navigator.of(buildContext).pushNamed('/addNewQuote');
+                onPressed: () async {
+                  await Navigator.of(buildContext).pushNamed('/addNewQuote');
+                  getData();
                 },
               ),
               IconButton(
@@ -228,4 +239,5 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+  
 }
